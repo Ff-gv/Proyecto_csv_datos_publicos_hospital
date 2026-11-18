@@ -1,25 +1,27 @@
 import csv
 import os
-import sys
-from modulo_os import extraer_environ
 
 #siempre usar utf-8 para que pueda trabajar adecuadamente
 #esto obtiene el encoding print(sys.getfilesystemencoding()) 
 def busqueda_fecha(doc):
-    with open(doc,encoding="utf8",newline='') as csv_f:
+    #con esto se si tiene encabezado, no es preciso pero es para verificar patrones
+    headers = csv.Sniffer().has_header(doc)
+    print(headers)
+    lista_muestra = []
+    with open(doc,mode="r",encoding="latin-1") as sample:
+        sample_writing = csv.reader(sample,delimiter=';')
+        for line in range(0,100):
+            lista_muestra.append(next(sample_writing))
+    with open("sample.csv",mode="w",newline='') as sample_csv:
+        #csv.writer manda en delimitador, es el que controla si es , ; o cualquier otra puntuacion que delimita las columnas
+        archivo_csv = csv.writer(sample_csv)
+        archivo_csv.writerows(lista_muestra)
+            
+    with open(doc,encoding="latin-1",newline='',mode="r") as csv_f:
     #probar con y sin newline=''
-        doc_s = csv.reader(csv_f,delimiter=' ', quotechar="|")
-        for row in doc_s:
-            print(', '.join(row))
-
-#aca uso la clave directamente del diccionario para obtener
-#el directorio de trabajo
-print(os.environ["PWD"])
-#este es mas seguro, sigue donde mi programa viaja en
-#directorios, por lo que hay que usar este
-print(os.getcwd())
-#pero tambien se puede usar getcwd para obtener el directorio]
-#de trabajo
-
-print(sys.getfilesystemencoding()) 
-extraer_environ()
+        descubrir = csv.Sniffer().sniff(csv_f.read(100),delimiters=";")
+        print(descubrir)
+        
+        
+os.getcwd
+busqueda_fecha("07OCCompraAgil.csv")

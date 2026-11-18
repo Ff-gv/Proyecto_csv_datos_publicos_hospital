@@ -12,4 +12,3 @@ la clave y valor en un documento de texto"""
         for a,b in os.environ.items():
             txt_n.write(f"{a}:{b}+\n")
 
-
