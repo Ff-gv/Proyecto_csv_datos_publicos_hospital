@@ -16,11 +16,11 @@ def muestra_csv(doc):
             lista_muestra.append(next(sample_writing))
     with open("sample.csv",mode="w",newline='') as sample_csv:
         #csv.writer manda en delimitador, es el que controla si es , ; o cualquier otra puntuacion que delimita las columnas
-        archivo_csv = csv.writer(sample_csv)
+        archivo_csv = csv.writer(sample_csv,delimiter=";")
         archivo_csv.writerows(lista_muestra)
+        
 def extraer_fecha():
     pass 
         
         
 os.getcwd
-muestra_csv("07OCCompraAgil.csv")
