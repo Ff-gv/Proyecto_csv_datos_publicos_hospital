@@ -1,7 +1,7 @@
 #aca uso la clave directamente del diccionario para obtener
 #el directorio de trabajo
 import os
-import sys
+
 print(os.environ["PWD"])
 #este es mas seguro, sigue donde mi programa viaja en
 #directorios, por lo que hay que usar este
@@ -18,7 +18,7 @@ print(os.getresuid())
 #print(os.setregid(1001,1001))
 #esto cambiaria los permisos de usuario, pero saldria PermissionError
 #tendria que hacerse con sudo la ejecucion de este script
-
+os.rename("1.txt","190.txt")
 try:
     print(os.setregid(1001,1001))
 except PermissionError as e:
@@ -45,5 +45,27 @@ def mk_dir_funct():
     sys_info_2() 
     print(os.getcwd())
 mk_dir_funct()
-    
 
+
+#aca sale todos los datos referentes al ambiente de mi os
+# print(os.environ)
+#esto obtiene un diccionario
+#por lo que write no funcionaria
+import os
+
+def extraer_environ():
+    """aca toma diccionario os.environ y escribe como iteracion
+la clave y valor en un documento de texto"""
+    print(os.environ["HOME"])
+    with open("environ_os.txt","w") as txt_n:
+        for a,b in os.environ.items():
+            txt_n.write(f"{a}:{b}+\n")
+
+def mk_dir_funct():
+    try:
+        nombre_ingreso =input("ingrese nombre directorio: ")
+        os.mkdir(nombre_ingreso)
+        os.chdir(nombre_ingreso)
+    except FileExistsError:
+        print("Directorio ya se encuentra creado.")    
+    print(os.getcwd())
