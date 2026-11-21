@@ -55,7 +55,8 @@ def muestra_csv_exploracion(doc):
                         archivo.write(linea + "\n")
                         repetir = ""
                         verificacion = True
-                        os.chdir("..")
+                os.chdir("..")
+                        
                             
 def extract_institucion(doc,lista_1):
     lista_dic = []
@@ -76,18 +77,30 @@ def rescan_institucion(doc):
             lista_unica.add(line)
             return lista_unica
     return None
+
 def extraer_año(doc):
-    fecha = ""
-    lista_fecha = ""
+    semestre_1 = "semestre_1"
+    semestre_2 = "semestre_2"
+    lista_fecha = set()
+    lista_n = list()
     with open(doc,mode="r",encoding="Latin-1",newline="") as archivo:
         lectura = csv.DictReader(archivo,delimiter=";")
-        fecha_ex = next(lectura)
-    print(type(fecha_ex))
-    x = fecha_ex["FechaEnvioOC"]
-    print(x)
-    extraer_año = re.search(r"\d{2}-(\d{2})-(\d{4})",x)
-    año = extraer_año.group(1)
-    return año
+        for row in lectura:
+            lista_fecha.add((row["FechaEnvioOC"].strip()))
+        lista_n = list(x[:10] for x in lista_fecha)
+        for x in lista_n:
+            mes = x[3:5]
+            if mes > "06":
+                val = True
+            elif mes < "06":
+                val = False
+        anio = lista_n[0][6:10]
+        if val == False:
+            return anio, semestre_1
+        elif val == True:
+            return anio, semestre_2
+        else:
+            return None
 
 
 

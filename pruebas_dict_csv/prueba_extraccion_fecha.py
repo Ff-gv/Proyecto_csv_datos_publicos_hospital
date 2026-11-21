@@ -5,27 +5,25 @@ def extraer_año(doc):
     semestre_2 = "semestre_2"
     lista_fecha = set()
     lista_n = list()
-    lista_trim = list()
-    lista_1 = list()
     with open(doc,mode="r",encoding="Latin-1",newline="") as archivo:
         lectura = csv.DictReader(archivo,delimiter=";")
         for row in lectura:
             lista_fecha.add((row["FechaEnvioOC"].strip()))
-        for x in lista_fecha:
-            print(x)
-            fecha = x[:10]
-            lista_n.append(fecha)
+        lista_n = list(x[:10] for x in lista_fecha)
         for x in lista_n:
             mes = x[3:5]
             if mes > "06":
                 val = True
             elif mes < "06":
                 val = False
-                
         anio = lista_n[0][6:10]
-        print(anio)
-        print(val)
-        
+        if val == False:
+            return anio, semestre_1
+        elif val == True:
+            return anio, semestre_2
+        else:
+            return None
+
     #no creo que sea necesario colocarlo en la lsita, pero sirve para verificar
     #si la funcion es exitosa en filtrar
     #es mejor que si extraigo fechas para renombrar un archivo, lo haga
