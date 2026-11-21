@@ -85,7 +85,7 @@ def extraer_año(doc):
     print(type(fecha_ex))
     x = fecha_ex["FechaEnvioOC"]
     print(x)
-    extraer_año = re.search(r"\d{2}-\d{2}-(\d{4})",x)
+    extraer_año = re.search(r"\d{2}-(\d{2})-(\d{4})",x)
     año = extraer_año.group(1)
     return año
 
@@ -95,7 +95,7 @@ def extraer_año(doc):
 # muestra_csv_exploracion("07OCCompraAgil.csv")
 #se podria guardar una lista en txt y llamarla para utilizarla como memoria
 #de la lista unica
-#pasar la escritura del archivo al final dee esta funcion en vez de estar en extract_institucion
+#pasar la escritura del archivo al final de esta funcion en vez de estar en extract_institucion
 #la escritura de la muestra puede ser opcional?
 #podria ser que cada vez qie se genere un scan, se cree otro directorio
 #con los resultados?
